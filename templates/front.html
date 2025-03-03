@@ -1,0 +1,66 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', path='front.css') }}">
+    <title>مدیریت کاربران</title>
+</head>
+<body>
+    <div class="container">
+        <h1>مدیریت کاربران</h1>
+        <table>
+            <thead>
+                <tr>
+                    {% for title in titles %}
+                        <th>{{title}}</th>
+                    {% endfor %}
+                    <th>عملیات</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in data %}
+                <tr>
+                    {% for value in item %}
+                        <td>{{value}}</td>
+                    {% endfor %}
+                    <td class="action-buttons">
+                        <a href="/edit/{{item[0]}}" class="edit-btn">ویرایش</a>
+                        <a href="/delete/{{item[0]}}" class="delete-btn">حذف</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <button id="modal-btn" class="button">افزودن کاربر جدید</button>
+
+        <div id="my-modal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span class="close">&times;</span>
+                    <h2>افزودن کاربر جدید</h2>
+                </div>
+                <div class="modal-body">
+                    <form id="insert-form" method="POST" action="/insert">
+                        <div class="form-group">
+                            <label for="name">نام:</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">ایمیل:</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="age">سن:</label>
+                            <input type="number" id="age" name="age" required>
+                        </div>
+                        <button type="submit" class="submit-btn">ثبت</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', path='front.js') }}"></script>
+</body>
+</html> 
